@@ -23,6 +23,9 @@ function Main(){
     sum: state.basket.sum,
     count: state.catalog.count,
     currentPage: state.catalog.currentPage,
+    limit: state.catalog.limit,
+    quantity: state.catalog.quantity,
+    total_page: state.catalog.total_page
   }));
 
 
@@ -53,6 +56,9 @@ function Main(){
       <List items={select.items} renderItem={renders.item} onOpen={callbacks.openModalChange}/>
       <Paginator count={select.count}
                  currentPage={select.currentPage}
+                 limit={select.limit}
+                 quantity={select.quantity}
+                 total_page={select.total_page}
                  load={callbacks.load}
                  changePage={callbacks.changePage}
                  />

@@ -5,14 +5,12 @@ import './styles.css';
 import { useState } from 'react';
 
 
-function Pagination({count, currentPage, load, changePage}) {
+function Pagination({count, currentPage, limit, quantity, load, changePage, total_page}) {
   const cn = bem('Pagination');
-
-  const limit = 4;
 
   const pages = [];
 
-  for (let i = 1; i <= Math.ceil(count/limit); i++) {
+  for (let i = 1; i <= total_page; i++) {
     pages.push(i);
   }
   console.log(pages)
@@ -43,6 +41,7 @@ function Pagination({count, currentPage, load, changePage}) {
       }
       if (pages[i] === pages[pages.length - 1] && currentPage === pages[i]) {
         pagesToShow.push(pages[0], 0, pages[i - 2], pages[i - 1]);
+
       } else if (currentPage === pages[i]) {
         pagesToShow.push(pages[0], 0, pages[i - 1], pages[i], pages[i + 1], 0);
       }
@@ -53,13 +52,14 @@ function Pagination({count, currentPage, load, changePage}) {
     return pagesToShow;
     }
 
+
   React.useEffect(() => {
-    load(limit, limit * (currentPage));
-  }, [currentPage, count, load]);
+    load(limit, currentPage, quantity);
+  }, [currentPage, count, load, limit, quantity]);
 
   return (
       <div className={cn()}>
-      {toShow().map((i, index) => {
+      {pages.map((i, index) => {
         if (i) {
           if (i === currentPage) {
             return (

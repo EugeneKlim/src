@@ -15,7 +15,9 @@ class CatalogState extends StateModule{
   initState() {
     return {
       items: [],
+      limit: 5,
       currentPage: 1,
+      quantity: 1
     };
   }
     
@@ -31,8 +33,8 @@ class CatalogState extends StateModule{
   /**
    * Загрузка с сервера
    */
-  async load(limit, page){
-    const response = await fetch(`${this.proxyServer}${this.requestURL}?limit=${limit}&page=${page}`);
+  async load(limit, page, quantity = 1){
+    const response = await fetch(`${this.proxyServer}${this.requestURL}?limit=${limit}&page=${page}&quantity=${quantity}`);
     const json = await response.json();
     console.log(json)
     this.setState({
